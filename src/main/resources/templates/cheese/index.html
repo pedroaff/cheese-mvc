@@ -1,13 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
 <body>
+    <nav th:replace="fragments :: nav"></nav>
     <h2 th:text="${title}"></h2>
 
     <p th:unless="${cheeses} and ${cheeses.size()}">no cheeses</p>
     <ul>
         <li th:each="cheese : ${cheeses}" th:text="${cheese}"></li>
     </ul>
-
-    <a href="/cheese/create">Create</a>
 </body>
 </html>
