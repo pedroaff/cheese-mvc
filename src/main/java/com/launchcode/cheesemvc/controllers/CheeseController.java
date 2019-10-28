@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("cheese")
 public class CheeseController {
 
-    static ArrayList<String> cheeses = new ArrayList<>();
+    static HashMap<String, String> cheeses = new HashMap<>();
 
     @RequestMapping("")
     public String index(Model model) {
@@ -32,9 +32,12 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String store(@RequestParam String name) {
+    public String store(
+            @RequestParam String name,
+            @RequestParam String description
+            ) {
 
-        cheeses.add(name);
+        cheeses.put(name, description);
 
         return "redirect:";
     }
