@@ -24,4 +24,12 @@ public class CheeseController {
 
         return "cheese/index";
     }
+
+    @RequestMapping("create")
+    public String create(Model model) {
+
+        model.addAttribute("title", "Create");
+
+        return "cheese/create";
+    }
 }

@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title} + Page"></title>
+</head>
+<body>
+<h2 th:text="${title}"></h2>
+
+<form action="post">
+    <input type="text" name="cheeseName" />
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>
