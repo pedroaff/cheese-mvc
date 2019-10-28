@@ -44,4 +44,12 @@ public class CheeseController {
 
         return "redirect:";
     }
+
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String remove(Model model) {
+        model.addAttribute("cheeses", cheeses);
+        model.addAttribute("title", "Remove cheese");
+
+        return "cheese/remove";
+    }
 }
