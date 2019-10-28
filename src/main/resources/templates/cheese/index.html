@@ -4,5 +4,9 @@
 </head>
 <body>
     <h2 th:text="${title}"></h2>
+
+    <ul>
+        <li th:each="cheese : ${cheeses}" th:text="${cheese}"></li>
+    </ul>
 </body>
 </html>
