@@ -1,6 +1,7 @@
 package com.launchcode.cheesemvc.controllers;
 
 import com.launchcode.cheesemvc.models.Cheese;
+import com.launchcode.cheesemvc.models.CheeseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,11 @@ import java.util.ArrayList;
 @RequestMapping("cheese")
 public class CheeseController {
 
-    static ArrayList<Cheese> cheeses = new ArrayList<Cheese>();
 
     @RequestMapping("")
     public String index(Model model) {
 
-        model.addAttribute("cheeses", cheeses);
+        model.addAttribute("cheeses", CheeseData.getAll());
         model.addAttribute("title", "My Cheeses");
 
         return "cheese/index";
@@ -40,16 +40,26 @@ public class CheeseController {
 
         Cheese cheese = new Cheese(name, description);
 
-        cheeses.add(cheese);
+        CheeseData.add(cheese);
 
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String remove(Model model) {
-        model.addAttribute("cheeses", cheeses);
+        model.addAttribute("cheeses", CheeseData.getAll());
         model.addAttribute("title", "Remove cheese");
 
         return "cheese/remove";
     }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemove(@RequestParam int[] cheeseIds) {
+        for(int cheeseId : cheeseIds) {
+            CheeseData.remove(cheeseId);
+        }
+        return "redirect:";
+    }
+
+
 }
