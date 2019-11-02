@@ -4,6 +4,8 @@ import com.launchcode.cheesemvc.models.Cheese;
 import com.launchcode.cheesemvc.models.CheeseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,14 +31,22 @@ public class CheeseController {
     public String create(Model model) {
 
         model.addAttribute("title", "Create");
-
+        model.addAttribute(new Cheese());
         return "cheese/create";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String store(
-            @ModelAttribute Cheese cheese
+            @ModelAttribute Cheese cheese,
+            Errors errors,
+            Model model
             ) {
+
+        if(errors.hasErrors()) {
+            model.addAttribute("title", "Add Cheese");
+            return "cheese/create";
+        }
+
         CheeseData.add(cheese);
 
         return "redirect:";

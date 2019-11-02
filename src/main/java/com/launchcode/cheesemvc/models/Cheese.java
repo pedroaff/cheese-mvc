@@ -5,6 +5,7 @@ public class Cheese {
     private int id;
     private String name;
     private String description;
+    private CheeseType type;
 
     private static int nextId = 1;
 
