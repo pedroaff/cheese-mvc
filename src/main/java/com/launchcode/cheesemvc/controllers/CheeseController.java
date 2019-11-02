@@ -4,6 +4,7 @@ import com.launchcode.cheesemvc.models.Cheese;
 import com.launchcode.cheesemvc.models.CheeseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,12 +35,8 @@ public class CheeseController {
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String store(
-            @RequestParam String name,
-            @RequestParam String description
+            @ModelAttribute Cheese cheese
             ) {
-
-        Cheese cheese = new Cheese(name, description);
-
         CheeseData.add(cheese);
 
         return "redirect:";
