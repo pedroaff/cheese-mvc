@@ -1,32 +1,28 @@
 package com.launchcode.cheesemvc.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Cheese {
 
+    @Id
+    @GeneratedValue
     private int id;
     private String name;
     private String description;
-
     private CheeseType type;
 
-    private static int nextId = 1;
-
     public Cheese(String name, String description) {
-        this();
         this.setName(name);
         this.setDescription(description);
     }
 
-    public Cheese() {
-        setId(nextId);
-        nextId++;
-    }
+    public Cheese() { }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
