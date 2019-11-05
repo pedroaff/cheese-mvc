@@ -1,28 +1,27 @@
 package com.launchcode.cheesemvc.controllers;
 
 import com.launchcode.cheesemvc.models.Cheese;
-import com.launchcode.cheesemvc.models.CheeseData;
 import com.launchcode.cheesemvc.models.CheeseType;
+import com.launchcode.cheesemvc.repositories.CheeseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-
 @Controller
 @RequestMapping("cheese")
 public class CheeseController {
 
+    @Autowired
+    CheeseRepository repository;
 
     @RequestMapping("")
     public String index(Model model) {
 
-        model.addAttribute("cheeses", CheeseData.getAll());
+        model.addAttribute("cheeses", repository.findAll());
         model.addAttribute("title", "My Cheeses");
 
         return "cheese/index";
@@ -43,14 +42,14 @@ public class CheeseController {
             Model model
             ) {
 
-        CheeseData.add(cheese);
+        repository.save(cheese);
 
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String remove(Model model) {
-        model.addAttribute("cheeses", CheeseData.getAll());
+        model.addAttribute("cheeses", repository.findAll());
         model.addAttribute("title", "Remove cheese");
 
         return "cheese/remove";
@@ -59,7 +58,7 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemove(@RequestParam int[] cheeseIds) {
         for(int cheeseId : cheeseIds) {
-            CheeseData.remove(cheeseId);
+            repository.deleteById(cheeseId);
         }
         return "redirect:";
     }
