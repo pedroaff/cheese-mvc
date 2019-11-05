@@ -1,7 +1,6 @@
 package com.launchcode.cheesemvc.controllers;
 
 import com.launchcode.cheesemvc.models.Cheese;
-import com.launchcode.cheesemvc.models.CheeseType;
 import com.launchcode.cheesemvc.repositories.CheeseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
